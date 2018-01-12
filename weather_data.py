@@ -24,7 +24,7 @@ def weather_data(years,months = ['January','February','March','April','May','Jun
     '''
 
 
-    #This block defines the vars to be used later
+    #This block defines the vars to be used later (has to be global since we want df to be avail outside of function)
     
     global df
     global dict
