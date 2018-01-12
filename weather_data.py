@@ -7,8 +7,8 @@ import pandas as pd
 import re
 
 
-def weather_data(years,months = ['January','February','March','April','May','June','July','August','September','October','November','December'],
-                 province= 'Quebec'):
+def weather_data(years,months = ['January','February','March','April','May','June','July','August',
+                                 'September','October','November','December'],province= 'Quebec'):
 
     '''
     :param years: (iterable)
