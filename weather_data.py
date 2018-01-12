@@ -99,7 +99,7 @@ def weather_data(years,months = ['January','February','March','April','May','Jun
 
 
             #This block creates dates Dict which will create the index of the final df
-            #date is extracted from filename
+            #date is extracted from filename (file format: "eng-climate-summaries-Quebec-1,1995")
             date = re.compile('\d+').findall(file)
             date = date[0] + '-' + date[1]
             dict['dates'].append(date)
