@@ -4,8 +4,8 @@ Notes and comments.
 And few code bits on how to answer certain questions.
 
 '''
-
-pd.Index(df.index).get_loc('2-2000') #get index integer for Feb 2000
+#get index integer for Feb 2000 (ie : for iloc search by index number)
+pd.Index(df.index).get_loc('2-2000') 
 
 #converts Tn row to numeric data only for analysis. Skips errors and replaces them with NaN
 df.Tn[pd.to_numeric(df.Tn,errors ='coerce') <= -29]  #returns months where temperature have reached extremes below -29 Celsius
