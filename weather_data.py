@@ -12,7 +12,8 @@ def weather_data(years,months = ['January','February','March','April','May','Jun
 
     '''
     :param years: (iterable)
-        should be a range   ie: range(1998-1999) <- for year 1998
+        should be a range (between 1840 - 2018)
+        ie: range(1998-1999) <- for year 1998
         OR list of strings ie: ['1998','1999']
 
     :param months: Default is every month
@@ -37,13 +38,14 @@ def weather_data(years,months = ['January','February','March','April','May','Jun
 
     # launching chrome webdriver
     chrome_path = r"C:\Users\Utilisateur\Documents\Python\WinPython-64bit-3.5.4.0Qt5\chromedriver.exe"
-
+       
     #setting chrome webdriver download directory - this should be the same directory as script 
     chrome_options = webdriver.ChromeOptions()
-    prefs = {'download.default_directory': 'C:/Users/Utilisateur/Documents/Python/Python Projects/weather'}
+      # dir where files should be d/l'd to
+    prefs = {'download.default_directory': 'C:/Users/Utilisateur/Documents/Python/Python Projects/weather'} 
     chrome_options.add_experimental_option('prefs', prefs)
 
-    ##actual launch of browser
+    #actual launch of browser
     driver = webdriver.Chrome(chrome_path, chrome_options=chrome_options)
 
     # website to crawl
@@ -54,7 +56,7 @@ def weather_data(years,months = ['January','February','March','April','May','Jun
 
     ###############################
     #
-    # ###   sKipping for now   ###
+    # ###   Skipping for now   ###
     #
     # years = range(1998, 1999)
     #
@@ -87,8 +89,8 @@ def weather_data(years,months = ['January','February','March','April','May','Jun
 
             #wait for download
             time.sleep(3)
-
-
+            
+                   
 
 
             #find CSV files in dir
@@ -96,8 +98,10 @@ def weather_data(years,months = ['January','February','March','April','May','Jun
             
             #latest d/l'd file: file
             file = max(list_of_files, key=os.path.getctime)
-
-
+            
+            #print status:  downloaded file
+            print('Successfully downloaded ' + file + '\n')
+            
             #This block creates dates Dict which will create the index of the final df
             #date is extracted from filename (file format: "eng-climate-summaries-Quebec-1,1995")
             date = re.compile('\d+').findall(file)
@@ -118,12 +122,19 @@ def weather_data(years,months = ['January','February','March','April','May','Jun
                 df.loc[dict['dates'][-1]] = data.loc["MONTREAL/ST-HUBERT A",
                                                      ['Tm', 'D', 'Tx', 'Tn', 'S', 'S%N', 'P', 'P%N']].to_dict()
 
-
+                      
             # This block should delete the file after the info is extracted from it
-            os.remove(file)
-
+            ###os.remove(file)  #COMMENT OUT IF YOU WANT TO KEEP THE FILE
+           
+          
+            #print status (end with space for next loop readibility): 
+            print('Data successfully extracted! \n')
+            print('Deleted file from local directory')
+            print('\n'*3)
+            
+            
             # wait 1 second between each loop
-            time.sleep(1)
+            ###time.sleep(1)  #necessary?
 
     # close brower
     driver.close()
@@ -133,5 +144,6 @@ def weather_data(years,months = ['January','February','March','April','May','Jun
                             'Tn': 'MinTemp', 'S': 'Snowfall_cm', 'S%N': 'PCTofNormalSnow',
                             'P': 'TotalPrecipitation_mm',
                             'P%N': 'PctOfNormalPrecipitation'})
+    
 
 
